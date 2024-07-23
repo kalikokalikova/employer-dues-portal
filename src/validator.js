@@ -7,5 +7,13 @@
 // Dues, COPE, should be "moneyish"
 // strip $
 // use Mike's regex to check to be numeric
+//('/^[0-9]{1,3}+(?:\.[0-9]{0,2})?$/', INPUT)
+var str = "$12.565";
+if (str.match(/^[0-9]{1,3}+(?:\.[0-9]{0,2})?$/)) {
+    // contains illegal characters
+	alert('Good');
+} else {
+	alert('Bad');
+}
 
 // Job status value should match one of the values in an array
