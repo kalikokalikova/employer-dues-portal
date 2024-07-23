@@ -4,20 +4,16 @@ import Dataset from "./Dataset.mjs";
 
 function TablePreview({ dataset }) {
     const [rowLimit, setRowLimit] = useState(5);
-    const [hoverCoordinates, setHoverCoordinates] = useState([-1, -1]);
 
     let displayedrows = dataset.printabledata.slice(0, rowLimit);
 
     return <>
-        <h5>Hover your mouse over the table below. Rows in <span className="badge text-bg-primary">blue</span> will be headers, and appear in every output file. The values of cells in <span className="badge text-bg-success">green</span> will be used to segment the output files. Click on the cell to finalize your selection.</h5>
-        <table className="table" onMouseLeave={() => setHoverCoordinates([-1, -1])}>
+        <table className="table">
             <tbody>
                 {displayedrows.map((row, rowindex) =>
                     <tr key={rowindex}>
                         {row.map((cell, cellindex) => <td
                             key={cellindex}
-                            onMouseEnter={() => setHoverCoordinates([rowindex, cellindex])}
-                            className={hoverCoordinates[0] >= rowindex ? "bg-primary text-white fw-bold" : (hoverCoordinates[1] == cellindex ? "bg-success text-white fw-bold" : null)}
                         >{String(cell)}</td>)}
                     </tr>
                 )}
