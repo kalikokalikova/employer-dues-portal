@@ -17,3 +17,7 @@ if (str.match(/^[0-9]{1,3}+(?:\.[0-9]{0,2})?$/)) {
 }
 
 // Job status value should match one of the values in an array
+
+export function validator(dataFile) {
+  console.log("whoo");
+}
