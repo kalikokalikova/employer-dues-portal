@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Dataset from "./Dataset.mjs";
 
-function TablePreview({ dataset, setSegmentIndex }) {
+function TablePreview({ dataset }) {
     const [rowLimit, setRowLimit] = useState(5);
     const [hoverCoordinates, setHoverCoordinates] = useState([-1, -1]);
 
@@ -17,7 +17,6 @@ function TablePreview({ dataset, setSegmentIndex }) {
                         {row.map((cell, cellindex) => <td
                             key={cellindex}
                             onMouseEnter={() => setHoverCoordinates([rowindex, cellindex])}
-                            onClick={() => setSegmentIndex([rowindex, cellindex])}
                             className={hoverCoordinates[0] >= rowindex ? "bg-primary text-white fw-bold" : (hoverCoordinates[1] == cellindex ? "bg-success text-white fw-bold" : null)}
                         >{String(cell)}</td>)}
                     </tr>
@@ -35,8 +34,7 @@ function TablePreview({ dataset, setSegmentIndex }) {
 }
 
 TablePreview.propTypes = {
-    dataset: PropTypes.instanceOf(Dataset),
-    setSegmentIndex: PropTypes.func
+    dataset: PropTypes.instanceOf(Dataset)
 };
 
 export default TablePreview;
