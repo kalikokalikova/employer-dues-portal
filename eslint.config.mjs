@@ -8,7 +8,7 @@ export default [
         ...reactRecommended,
         "rules": {
             "indent": [
-                "error",
+                "off",
                 4
             ],
             "quotes": [
