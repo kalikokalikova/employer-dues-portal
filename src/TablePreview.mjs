@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Dataset from "./Dataset.mjs";
 
 function TablePreview({ dataset }) {
   const [rowLimit, setRowLimit] = useState(5);
 
-  let displayedrows = dataset.rawdata.slice(0, rowLimit);
+  let displayedrows = dataset.slice(0, rowLimit);
 
   return (
     <>
@@ -20,12 +19,11 @@ function TablePreview({ dataset }) {
           ))}
         </tbody>
       </table>
-      {displayedrows.length < dataset.rawdata.length ? (
+      {displayedrows.length < dataset.length ? (
         <>
           <div>
             <strong>
-              {dataset.rawdata.length - displayedrows.length} more rows are
-              hidden.
+              {dataset.length - displayedrows.length} more rows are hidden.
             </strong>
           </div>
           <div className="btn-group">
@@ -37,7 +35,7 @@ function TablePreview({ dataset }) {
             </button>
             <button
               className="btn btn-primary"
-              onClick={() => setRowLimit(dataset.rawdata.length)}
+              onClick={() => setRowLimit(dataset.length)}
             >
               Show All Rows
             </button>
@@ -49,7 +47,7 @@ function TablePreview({ dataset }) {
 }
 
 TablePreview.propTypes = {
-  dataset: PropTypes.instanceOf(Dataset),
+  dataset: PropTypes.array,
 };
 
 export default TablePreview;

@@ -18,7 +18,6 @@ export default class Dataset {
     return new Promise((resolve, reject) => {
       csv.parse(this.file, {
         complete: (results) => {
-          console.log("parse results: ", results);
           this.rawdata = results.data;
           this.printabledata = results.data;
           this.csvmetadata = {

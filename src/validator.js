@@ -1,45 +1,46 @@
-// This validator expects First Name, Last Name, Id #, Employer, Job status, Dues, COPE
+// This basic and fragile validator expects a csv with the following columns:
+// Id, First Name, Last Name, Employer, Job status, Dues, COPE
 
-// Things that can be blank: Dues, COPE
+// Employer, Dues, and COPE can be blank, but if they exist they should be "moneyish"
 
-// 40 char limit on first name, 50 char limit on last name
+// 50 char limit on first and last name
 
-// Dues, COPE, should be "moneyish"
-// strip $
-// use Mike's regex to check to be numeric
-//('/^[0-9]{1,3}+(?:\.[0-9]{0,2})?$/', INPUT)
-
-// Job status value should match one of the values in an array
-const validStatuses = new Set(["active", "inactive"]);
+// Job status value should match one of the values in this set
+const STATUSES = new Set(["active", "inactive"]);
 
 const isBlank = (data) => {
   return data.length === 0;
 };
 
 const isInvalidCurrency = (data) => {
-  return !isNaN(data);
+  // This is super basic, needs to also handle strings like "$12.34"
+  return isNaN(data);
 };
 
 const isTooLong = (data) => {
   return data.length > 50;
 };
 
-export function validation(dataset) {
-  let dataToValidate = dataset.rawdata.slice(1);
+export const validation = (dataset) => {
+  let dataToValidate = dataset.rawdata.slice(1); // remove header before validating
+
   dataToValidate.forEach((row) => {
-    console.log("row: ", row);
     if (row.length === 7) {
+      // check is row has expected number of cells
       let errors = "";
       if (isBlank(row[0])) {
+        // Id
         errors = errors + "Id row can't be blank. ";
       }
       if (isBlank(row[1]) || isBlank(row[2])) {
+        // first and last name
         errors = errors + "Name rows can't be blank. ";
       }
       if (isTooLong(row[1]) || isTooLong(row[2])) {
+        // first and last name
         errors = errors + "Name rows need to be fewer than 50 characters. ";
       }
-      if (!validStatuses.has(row[4])) {
+      if (!STATUSES.has(row[4])) {
         errors = errors + "Invalid job status. ";
       }
       if (isInvalidCurrency(row[5]) || isInvalidCurrency(row[6])) {
@@ -48,7 +49,5 @@ export function validation(dataset) {
       row.push(errors);
     }
   });
-
-  console.log("whoo");
   return dataToValidate;
-}
+};

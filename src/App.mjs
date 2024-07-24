@@ -6,12 +6,10 @@ import { validation } from "./validator.js";
 export default function App() {
   const [dataset, setDataset] = useState(null);
   const [displayData, setDisplayData] = useState(null);
-  console.log("foo");
 
   useEffect(() => {
     if (dataset) {
-      const result = validation(dataset);
-      console.log("validation result: ", result);
+      let result = validation(dataset);
       setDisplayData(result);
     }
   }, [dataset]);
