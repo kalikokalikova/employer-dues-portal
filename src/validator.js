@@ -22,7 +22,7 @@ const isTooLong = (data) => {
 };
 
 export const validation = (dataset) => {
-  let dataToValidate = dataset.rawdata.slice(1); // remove header before validating
+  let dataToValidate = dataset.modifieddata.slice(1); // remove header before validating
 
   dataToValidate.forEach((row) => {
     if (row.length === 7) {
